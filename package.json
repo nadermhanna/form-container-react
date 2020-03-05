@@ -1,0 +1,34 @@
+{
+  "name": "form-container-react",
+  "version": "0.0.2",
+  "description": "A form container for react and react-native. Primarily built as a way of centralizing form starte and for use with custom inputs. Note: THIS IS A WORK IN PROGRESS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src --out-file index.js"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "recat-native",
+    "centralize",
+    "state",
+    "container",
+    "custom",
+    "inputs",
+    "controller"
+  ],
+  "author": "nadermhanna",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "prop-types": "^15.7.2"
+  }
+}
