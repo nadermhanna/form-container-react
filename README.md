@@ -28,7 +28,7 @@ const CustomInput = (props) => {
 		errorMessage,
 		isRequired,
 		isRequiredMessage
-  } = props;
+  	} = props;
   
 	const onBlur = () => {
 		if (!validationRegex.test(value)) setError(errorMessage);
