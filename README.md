@@ -39,14 +39,14 @@ const CustomInput = (props) => {
 		if (!value && isRequired) setError(isRequiredMessage);
 	};
 	const onChange = (e) => {
-    setValue(e.target.value);
-    if (error && validationRegex.test(value)) setError(null);
+		setValue(e.target.value);
+		if (error && validationRegex.test(value)) setError(null);
 	};
 	return(
-    <div>
-		<input onChange={onChange} onBlur={onBlur} />
-    {error && <p>{error}</p>}
-    </div>
+		<div>
+			<input onChange={onChange} onBlur={onBlur} />
+			{error && <p>{error}</p>}
+		</div>
 	);
 }
 
@@ -65,8 +65,8 @@ const App = () => {
 				isRequiredMessage="this field is required"
 			/>
 			<button issubmit="true">
-        submit
-      </button>
+       			submit
+      		</button>
 		</Form>
 	);
 }
