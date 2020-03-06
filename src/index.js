@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const Form = (props) => {
   const { children, getFormState, onSubmit: onSubmitCallback } = props;
+  const defaultIsRequiredMessage = "this is a required field";
   const isWeb = typeof document != 'undefined';
 
   const initialValues = {};
@@ -57,15 +58,24 @@ const Form = (props) => {
       } = child.props;
       const isRequiredSatisfied = isRequired
         ? !!form.values[field] : true;
-      const isValid = isRequiredSatisfied && !(form.errors[field]);
-      if (!isValid) {
-        isGoodToSubmit = false;
+      const isValid = !(form.errors[field]);
+      if (!isRequiredSatisfied) {
+        isGoodToSubmit = false
         formToUpdate = {
           ...formToUpdate,
           errors: {
-            [field]: isRequiredMessage || "this is a required field",
+            [field]: isRequiredMessage || defaultIsRequiredMessage,
           },
         };
+      } else if (
+        // clear out isRequired if it's been filled
+        !isValid && (
+          form.errors[field] === isRequiredMessage ||
+          form.errors[field] === defaultIsRequiredMessage
+      )) {
+        isGoodToSubmit = true;
+      } else if (!isValid) {
+        isGoodToSubmit = false
       }
     });
     if (isGoodToSubmit) {

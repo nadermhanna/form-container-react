@@ -35,6 +35,7 @@ var Form = function Form(props) {
   var children = props.children,
       getFormState = props.getFormState,
       onSubmitCallback = props.onSubmit;
+  var defaultIsRequiredMessage = "this is a required field";
   var isWeb = typeof document != 'undefined';
   var initialValues = {};
 
@@ -87,13 +88,18 @@ var Form = function Form(props) {
           isRequired = _child$props2.isRequired,
           isRequiredMessage = _child$props2.isRequiredMessage;
       var isRequiredSatisfied = isRequired ? !!form.values[field] : true;
-      var isValid = isRequiredSatisfied && !form.errors[field];
+      var isValid = !form.errors[field];
 
-      if (!isValid) {
+      if (!isRequiredSatisfied) {
         isGoodToSubmit = false;
         formToUpdate = _objectSpread({}, formToUpdate, {
-          errors: _defineProperty({}, field, isRequiredMessage || "this is a required field")
+          errors: _defineProperty({}, field, isRequiredMessage || defaultIsRequiredMessage)
         });
+      } else if ( // clear out isRequired if it's been filled
+      !isValid && (form.errors[field] === isRequiredMessage || form.errors[field] === defaultIsRequiredMessage)) {
+        isGoodToSubmit = true;
+      } else if (!isValid) {
+        isGoodToSubmit = false;
       }
     });
 
