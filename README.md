@@ -15,10 +15,10 @@ npm install --save form-container-react
 yarn add form-container-react
 ```
 #### Example:
+```
+import Form from 'form-container-react'
 
-    import Form from 'form-container-react'
-
-	const CustomInput = (props) => {
+const CustomInput = (props) => {
 	const {
 		setValue,
 		setError,
@@ -28,7 +28,7 @@ yarn add form-container-react
 		errorMessage,
 		isRequired,
 		isRequiredMessage
-  	} = props;
+  } = props;
   
 	const onBlur = () => {
 		if (!validationRegex.test(value)) setError(errorMessage);
@@ -39,15 +39,14 @@ yarn add form-container-react
 		if (!value && isRequired) setError(isRequiredMessage);
 	};
 	const onChange = (e) => {
-		setValue(e.target.value);
-		// clear the error as the user types a valid value
-		if (error && validationRegex.test(value)) setError(null);
+    setValue(e.target.value);
+    if (error && validationRegex.test(value)) setError(null);
 	};
 	return(
-		<div>
-			<input onChange={onChange} onBlur={onBlur} />
-			{error && <p>{error}</p>}
-		</div>
+    <div>
+		<input onChange={onChange} onBlur={onBlur} />
+    {error && <p>{error}</p>}
+    </div>
 	);
 }
 
@@ -71,8 +70,7 @@ const App = () => {
 		</Form>
 	);
 }
-
-
+```
 ## Props
 
 ### Form
