@@ -19,50 +19,58 @@ yarn add form-container-react
     import Form from 'form-container-react'
 
 	const CustomInput = (props) => {
-		const {
-			setValue,
-			setError,
-			value,
-			error,
-			validationRegex,
-			errorMessage,
-			isRequired,
-			isRequiredMessage
-		} = props;
-		const onBlur = () => {
-			if (!validationRegex.test(value)) setError(errorMessage);
-			/*
-			 if the 'isRequired' prop is set on a field, the field will be checked during 'onSubmit' as 
-			 well.
-			 */
-			if (!value && isRequired) setError(isRequiredMessage);
-		};
-		const onChange = (e) => {
-			setValue(e.target.value);
-		};
-		return(
+	const {
+		setValue,
+		setError,
+		value,
+		error,
+		validationRegex,
+		errorMessage,
+		isRequired,
+		isRequiredMessage
+  	} = props;
+  
+	const onBlur = () => {
+		if (!validationRegex.test(value)) setError(errorMessage);
+		/*
+		 if the 'isRequired' prop is set on a field, the field will be checked during 'onSubmit' as 
+		 well.
+		 */
+		if (!value && isRequired) setError(isRequiredMessage);
+	};
+	const onChange = (e) => {
+		setValue(e.target.value);
+		// clear the error as the user types a valid value
+		if (error && validationRegex.test(value)) setError(null);
+	};
+	return(
+		<div>
 			<input onChange={onChange} onBlur={onBlur} />
-		);
-	}
-	
-    const App = () => {
-		return(
-			<Form
-				getFormState={(state) => {console.log("state: ", state);}}
-				onSubmit={(form) => {console.log("form: ", form)};}
-			>
-				<p>This is the form</p>
-				<CustomInput
-					field="email"
-					validationRegex={/^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$/}
-					errorMessage="please enter a valid email"
-					isRequired
-					isRequiredMessage="this field is required"
-				/>
-				<button issubmit="true" />
-			</Form>
-		);
-	}
+			{error && <p>{error}</p>}
+		</div>
+	);
+}
+
+const App = () => {
+	return(
+		<Form
+			getFormState={(state) => {console.log("state: ", state);}}
+			onSubmit={(form) => {console.log("form: ", form); }}
+		>
+			<p>This is the form</p>
+			<CustomInput
+				field="email"
+				validationRegex={/^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$/}
+				errorMessage="please enter a valid email"
+				isRequired
+				isRequiredMessage="this field is required"
+			/>
+			<button issubmit="true">
+        submit
+      </button>
+		</Form>
+	);
+}
 
 
 ## Props
