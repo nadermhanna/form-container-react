@@ -8,7 +8,7 @@ Please note: This is a work in progress.
 
 #### npm
 ```
-npm install --save form-container-react
+npm install form-container-react
 ```
 #### yarn
 ```
